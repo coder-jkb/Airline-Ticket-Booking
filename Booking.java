@@ -17,24 +17,30 @@ public class Booking{
 
         flight = flights.get(flight_no-1);
 
+
         if (noSeats <= flight.seatsAvl){
             this.no_seats = noSeats;
             for(int i = 1; i<=noSeats; i++){
                 System.out.println("Enter details of passenger-"+i);
                 System.out.print("Enter name: ");
                 String name=sc.next();
+                // System.out.println("name >> " + name); // -----------------------
                 String passId = name.charAt(0)+name.charAt(name.length()-1)+Integer.toString(generateID());
+                System.out.println("passid >> " + passId); // -----------------------
                 int seatNo = flight.maxSeats - flight.seatsAvl + 1;
+                System.out.println("seat no >> " + seatNo); // -----------------------
                 Passenger p = new Passenger(passId, name, seatNo);
                 p.flight = flight;
                 this.passengers.add(p);
-
                 flight.seatsAvl-- ;
             }
             this.booking_id = (1+generateID())*2*flight_no*noSeats ;
-        } else {System.out.println("Cannot book ticket! Available seats: "+flight.seatsAvl);}
-        
-        sc.close();
+//            System.out.println("bid> " + this.booking_id); // -----------------------
+
+
+            // flight.seatsAvl = flight.seatsAvl - noSeats; // reduce the number of seats available
+        }
+        else {System.out.println("Cannot book ticket! Available seats: "+flight.seatsAvl); return;}
     }
 
     void showTicket(){
@@ -50,4 +56,10 @@ public class Booking{
 
         System.out.println("----------------------------------------------------");
     }
+
+//    void cancelTicket(){
+//        this.flight.seatsAvl += this.no_seats;
+//        // get the index of booking id of ticket
+//
+//    }
 }

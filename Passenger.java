@@ -1,3 +1,4 @@
+import java.util.*;
 public class Passenger{
     public String passId, name;
     public int seatNo;
