@@ -27,15 +27,49 @@ public class Main {
             choice = sc.nextInt();
             if (choice==0){
                 System.out.println("Thank You!");
-            } else if (choice==1){
+            } 
+            else if (choice==1){
                 System.out.print("Enter number of passengers: ");
                 int no_pass = sc.nextInt();
                 b.bookTicket(no_pass, flights);
                 tickets.add(b);
-            } else if (choice==2){
-                tickets.forEach(t->{t.showTicket();});
+            } 
+            else if (choice==2){
+                if (tickets.size() == 0){
+                    System.out.println("No tickets booked yet!");
+                } else{ 
+                    System.out.println("Booked ticket(s)");
+                    tickets.forEach(t -> {
+                        t.showTicket();
+                    }); }
+                
             } else if (choice==3){
                 System.out.print("Enter booking id of ticket to be cancelled: ");
+                int bId = sc.nextInt();
+                boolean tkt_not_found = true;
+                Iterator<Booking> iter_tkt = tickets.iterator();
+                while (iter_tkt.hasNext()) {
+                    Booking t = iter_tkt.next();
+                    if (t.booking_id == bId) {
+                        tkt_not_found = false;
+                        System.out.println(
+                                "Booking Id: " + t.booking_id + " Do you want to delete " + t.no_seats + " ticket(s) [Yes/No]");
+                        String cnf = sc.next();
+                        if(cnf.toLowerCase() == "yes"){
+                            t.passengers.get(0).flight.seatsAvl += t.no_seats;
+                            iter_tkt.remove();
+                            System.out.println("Cancelled Successfully!"); break;
+                        } else{
+                            System.out.println("Cancellation Declined!"); break;
+                        }
+                    }
+                }
+                if (tkt_not_found){
+                    System.out.println("Ticket to be cancelled was not found.");}
+                
+                // tickets.forEach(t->{
+                    
+                // });
                 // cancel all passengers or selective?
                 // find ticket in 'tickets' List
                 // remove the Booking object entire ticket is to be cancelled
