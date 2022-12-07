@@ -66,15 +66,8 @@ public class Main {
                 }
                 if (tkt_not_found){
                     System.out.println("Ticket to be cancelled was not found.");}
-                
-                // tickets.forEach(t->{
-                    
-                // });
-                // cancel all passengers or selective?
-                // find ticket in 'tickets' List
-                // remove the Booking object entire ticket is to be cancelled
-                // remove particular passenger from ticket.passenger in case of specific cancellation
             }
         } while (choice != 0);
+        sc.close();
     }
 }
