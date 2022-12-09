@@ -15,10 +15,10 @@ public class Booking{
         System.out.print("Enter flight number: ");
         int flight_no = sc.nextInt();
 
-        flight = flights.get(flight_no-1);
+        flight = flights.get(flight_no-1);  // get flight object from flight number
 
 
-        if (noSeats <= flight.seatsAvl){
+        if (noSeats <= flight.seatsAvl){ // if enough tickets are available ...
             this.no_seats = noSeats;
             for(int i = 1; i<=noSeats; i++){
                 System.out.println("Enter details of passenger-"+i);
@@ -26,12 +26,12 @@ public class Booking{
                 String name=sc.next();
                 // System.out.println("name >> " + name); // -----------------------
                 String passId = name.charAt(0)+name.charAt(name.length()-1)+Integer.toString(generateID());
-                System.out.println("passid >> " + passId); // -----------------------
+//                System.out.println("passid >> " + passId); // -----------------------
                 int seatNo = flight.maxSeats - flight.seatsAvl + 1;
-                System.out.println("seat no >> " + seatNo); // -----------------------
+//                System.out.println("seat no >> " + seatNo); // -----------------------
                 Passenger p = new Passenger(passId, name, seatNo);
-                p.flight = flight;
-                this.passengers.add(p);
+                p.flight = flight; // assign flight to each passenger
+                this.passengers.add(p); // add passenger to List
                 flight.seatsAvl-- ;
             }
             this.booking_id = (1+generateID())*2*flight_no*noSeats ;
@@ -40,7 +40,9 @@ public class Booking{
 
             // flight.seatsAvl = flight.seatsAvl - noSeats; // reduce the number of seats available
         }
-        else {System.out.println("Cannot book ticket! Available seats: "+flight.seatsAvl); return;}
+        else {System.out.println("Cannot book ticket! Available seats: "+flight.seatsAvl);}
+    
+        sc.close();
     }
 
     void showTicket(){

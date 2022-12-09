@@ -13,6 +13,7 @@ public class Main {
         flights.forEach(f->{ f.showFlight(); });
 
         List <Booking> tickets = new ArrayList<Booking>();
+
         System.out.println("Options:");
         System.out.println("[1] Book Ticket");
         System.out.println("[2] Show Ticket");
@@ -21,6 +22,7 @@ public class Main {
         int choice=0;
 
         Scanner sc = new Scanner(System.in);
+
         do {
             Booking b = new Booking();
             System.out.print("Enter your choice >> ");
@@ -30,22 +32,23 @@ public class Main {
             } else if (choice==1){
                 System.out.print("Enter number of passengers: ");
                 int no_pass = sc.nextInt();
-//                if (no_pass <= 0){
-//                    System.out.println("Booking Failed! Number of passengers can't be zero or negative");
-//                } else{
-//                    b.bookTicket(no_pass, flights);
-//                }
 
-                b.bookTicket(no_pass, flights);
-                tickets.add(b);
-            } else if (choice==2){
+                if (no_pass <= 0){
+                    System.out.println("Booking Failed! Number of passengers can't be zero or negative");
+                } else{
+                    b.bookTicket(no_pass, flights);
+                    tickets.add(b);
+                }
+                
+            } else if (choice==2){ // show all tickets
+                
                 if(tickets.size() == 0){
                     System.out.println("No tickets booked yet...!");
                 }
                 else {
                     tickets.forEach(t->{t.showTicket();}); 
                 }
-            } else if (choice == 3) {
+            } else if (choice == 3) { // cancellation
                 System.out.print("Enter booking id of ticket to be cancelled: ");
                 int bId = sc.nextInt();
                 boolean tkt_not_found = true;
@@ -74,5 +77,7 @@ public class Main {
                 }
             }
         } while (choice != 0);
+        
+        sc.close();
     }
 }
