@@ -116,7 +116,7 @@ public class Main {
                     panel.add(flight_number);
                     
                     JLabel flight_name = new JLabel(selFlight.fName);
-                    flight_name.setBounds(500, 50, 200, 30);
+                    flight_name.setBounds(550, 50, 200, 30);
                     panel.add(flight_name);
 
                     JLabel flight_src_dest = new JLabel(
@@ -169,16 +169,16 @@ public class Main {
         buy.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 panel.removeAll();
-                panel.add(home);
+                
                 int no_seats = name_fields.size();
                 Booking b = new Booking();
                 List<String> pass_names = new ArrayList<String>();
                 String pass_name;
                 for (int i = 0; i < no_seats; i++) {
                     pass_name = name_fields.get(i).getText();
-                    JLabel name = new JLabel("Passenger" + (i + 1) + ": " + pass_name);
-                    name.setBounds(50, (i * 30) + 150, 150, 30);
-                    panel.add(name);
+                    // JLabel name = new JLabel("Passenger" + (i + 1) + ": " + pass_name);
+                    // name.setBounds(50, (i * 30) + 150, 150, 30);
+                    // panel.add(name);
                     pass_names.add(pass_name); // add name to passenger list of string type
                 }
 
@@ -186,14 +186,16 @@ public class Main {
                     b.bookTicket(flights, no_seats, pass_names);
                     tickets.add(b);
                     panel.remove(buy);
-                    panel.add(show);
                     JOptionPane.showMessageDialog(frame,"Booked Successfully!");
                 } catch (Exception booking_err) {
                     JOptionPane.showMessageDialog(frame, booking_err);
                 } 
 
-                buy.setBounds(150,500,100,30);
-                show.setBounds(200,500,150,30);
+                home.setBounds(100, 100, 100, 30);
+                panel.add(home);
+
+                show.setBounds(250,100,150,30);
+                panel.add(show);
                 
                 frame.revalidate();
                 frame.repaint();
@@ -206,6 +208,8 @@ public class Main {
                 JLabel title = new JLabel("Booked Tickets");
                 title.setBounds(50,50,150,30);
                 panel.add(title);
+
+                home.setBounds(500, 50, 100, 30);
                 panel.add(home);
 
                 tickets.forEach(t->{
