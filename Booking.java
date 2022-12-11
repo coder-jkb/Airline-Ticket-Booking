@@ -9,26 +9,29 @@ public class Booking{
         return (int) ((Math.random() * (999 - 100)) + 100);
     }
 
-    public void bookTicket(int noSeats, List<Flight> flights){
-        Scanner sc = new Scanner(System.in);
+    public void bookTicket(List<Flight> flights, int flight_no, List<String> pass_names){
 
-        System.out.print("Enter flight number: ");
-        int flight_no = sc.nextInt();
+        
+        int noSeats = pass_names.size();
 
         flight = flights.get(flight_no-1);  // get flight object from flight number
-
-
-        if (noSeats <= flight.seatsAvl){ // if enough tickets are available ...
+        
+        System.out.print("number seats: "+noSeats);
+        // if enough tickets are available or 
+        // 9 is the maximum no of tickets one can book at once.
+        if (noSeats <= flight.seatsAvl || noSeats <= 9){ 
+            System.out.println("if >> >> >> ");
             this.no_seats = noSeats;
-            for(int i = 1; i<=noSeats; i++){
-                System.out.println("Enter details of passenger-"+i);
-                System.out.print("Enter name: ");
-                String name=sc.next();
-                // System.out.println("name >> " + name); // -----------------------
+            for(int i = 0; i < noSeats; i++){
+                // System.out.println("Enter details of passenger-"+i);
+                // System.out.print("Enter name: ");
+                // String name=sc.next();
+                String name = pass_names.get(i);
+                System.out.println("name >> " + name); // -----------------------
                 String passId = name.charAt(0)+name.charAt(name.length()-1)+Integer.toString(generateID());
-//                System.out.println("passid >> " + passId); // -----------------------
+               System.out.println("passid >> " + passId); // -----------------------
                 int seatNo = flight.maxSeats - flight.seatsAvl + 1;
-//                System.out.println("seat no >> " + seatNo); // -----------------------
+               System.out.println("seat no >> " + seatNo); // -----------------------
                 Passenger p = new Passenger(passId, name, seatNo);
                 p.flight = flight; // assign flight to each passenger
                 this.passengers.add(p); // add passenger to List
@@ -42,7 +45,7 @@ public class Booking{
         }
         else {System.out.println("Cannot book ticket! Available seats: "+flight.seatsAvl);}
     
-        sc.close();
+        // sc.close();
     }
 
     void showTicket(){
